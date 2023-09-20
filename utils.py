@@ -52,7 +52,6 @@ def display(doc):
     for key in METADATA_KEYS:
         if md[key] != '[]':
             meta_list = literal_eval(md[key])
-            print(type(meta_list))
             st.markdown(f"<small style='text-align: right;'>{key}: <b>{', '.join([escape_markdown(m) for m in meta_list])}</b></small>",unsafe_allow_html=True)
     text_names  = literal_eval(md['image_lookup'])
     image_paths = [format_image_path(tn) for tn in text_names] 
