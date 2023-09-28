@@ -1,0 +1,4 @@
+langchain==0.0.304
+streamlit==1.26.0
+streamlit_image_select==0.6.0
+thefuzz==0.20.0

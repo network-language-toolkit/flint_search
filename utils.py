@@ -8,6 +8,30 @@ from streamlit_image_select import image_select
 QUERY_PROMPT  = 'Represent this sentence for searching relevant passages: '
 METADATA_KEYS = ['From', 'To', 'Cc', 'Date', 'Subject', 'Attachment']
 
+MAIN_INFO = """
+Peter Nadel and Kevin Smith, Tufts University
+</br>
+</br>
+Hundreds of thousands of emails retrieved through FOIA, <i>finally</i> searchable
+</br>
+</br>
+Completely free and open to all
+</br>
+</br>
+"""
+
+css = """
+        <style>
+            div[data-testid="stImage"] {
+                border: 1.5px solid black;
+            }
+            h1 {
+                font-size: 50px;
+                text-align: center;
+            }
+        </style>
+        """
+
 @st.cache_resource
 def prep_embeddings():
     model_norm = HuggingFaceBgeEmbeddings(
@@ -40,8 +64,6 @@ def escape_markdown(text):
         text = text.replace(char, '').replace('\t', '')
     return text
 
-# https://rjdgrlmrpwnzwmdwgizseanca.s3.us-east-2.amazonaws.com/Treasury1_jp2/Treasury1_0000.png
-
 def format_image_path(text_name):
     directory = '_'.join(text_name.split('_')[:-1])
     fname = text_name.split('.')[0] + '.png'
@@ -54,11 +76,13 @@ def display(doc):
             meta_list = literal_eval(md[key])
             st.markdown(f"<small style='text-align: right;'>{key}: <b>{', '.join([escape_markdown(m) for m in meta_list])}</b></small>",unsafe_allow_html=True)
     text_names  = literal_eval(md['image_lookup'])
+    with st.expander('See the Parsed Email Text'):
+        st.markdown(doc.page_content)
     image_paths = [format_image_path(tn) for tn in text_names] 
     if len(image_paths) > 1:
         img_select = image_select("See images in this thread", image_paths, captions=[cap.split('/')[-1] for cap in image_paths])
         if img_select:
-            st.image(img_select, width=420)
+            st.image(img_select)
     else:
         st.image(image_paths[0], caption=image_paths[0].split('/')[-1])
-    st.markdown("<hr style='width: 75%;margin: auto;'>",unsafe_allow_html=True)
+    st.divider()
