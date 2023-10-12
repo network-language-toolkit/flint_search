@@ -1,5 +1,6 @@
-langchain==0.0.304
+gdown==4.7.1
+langchain==0.0.313
 streamlit==1.26.0
-streamlit_image_select==0.6.0
+streamlit_carousel==0.0.4
 thefuzz==0.20.0
 sentence_transformers
