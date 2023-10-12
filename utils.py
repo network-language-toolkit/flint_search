@@ -3,7 +3,10 @@ from langchain.embeddings import HuggingFaceBgeEmbeddings
 from langchain.vectorstores import FAISS
 from thefuzz import fuzz
 from ast import literal_eval
-from streamlit_image_select import image_select
+# from streamlit_image_select import image_select
+from streamlit_carousel import carousel
+import gdown
+import os
 
 QUERY_PROMPT  = 'Represent this sentence for searching relevant passages: '
 METADATA_KEYS = ['From', 'To', 'Cc', 'Date', 'Subject', 'Attachment']
@@ -31,6 +34,11 @@ css = """
             }
         </style>
         """
+
+@st.cache_data
+def prep_data():
+    flint_920_url = 'https://drive.google.com/drive/folders/1dXnLDBpVtfSo6SncSdOlidcAMnkbeiG8?usp=sharing'
+    gdown.download_folder(flint_920_url, quiet=True, use_cookies=False)
 
 @st.cache_resource
 def prep_embeddings():
@@ -80,9 +88,11 @@ def display(doc):
         st.markdown(doc.page_content)
     image_paths = [format_image_path(tn) for tn in text_names] 
     if len(image_paths) > 1:
-        img_select = image_select("See images in this thread", image_paths, captions=[cap.split('/')[-1] for cap in image_paths])
-        if img_select:
-            st.image(img_select)
+        image_list = [dict(title=f'Scan {i+1}', text=image_path.split('/')[-1], img=image_path) for i, image_path in enumerate(image_paths)]
+        carousel(items = image_list, slide=False, controls=True)
+        # img_select = image_select("See images in this thread", image_paths, captions=[cap.split('/')[-1] for cap in image_paths])
+        # if img_select:
+        #     st.image(img_select)
     else:
         st.image(image_paths[0], caption=image_paths[0].split('/')[-1])
     st.divider()

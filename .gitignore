@@ -166,3 +166,6 @@ flint_920.zip
 
 # notebooks
 *.ipynb
+
+# csvs
+*.csv
