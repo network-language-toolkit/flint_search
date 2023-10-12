@@ -5,3 +5,4 @@ streamlit_carousel==0.0.4
 thefuzz==0.20.0
 sentence_transformers
 faiss-cpu
+faiss-gpu
