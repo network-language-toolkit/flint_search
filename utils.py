@@ -37,7 +37,7 @@ css = """
 @st.cache_data
 def prep_data():
     flint_920_url = 'https://drive.google.com/drive/folders/1dXnLDBpVtfSo6SncSdOlidcAMnkbeiG8?usp=sharing'
-    gdown.download_folder(flint_920_url, quiet=True, use_cookies=False)
+    gdown.download_folder(flint_920_url, use_cookies=False)
 
 @st.cache_resource
 def prep_embeddings():
@@ -49,7 +49,7 @@ def prep_embeddings():
     return model_norm
 
 def prep_db(em):
-    return FAISS.load_local('flint_920', em)
+    return FAISS.load_local('./flint_920', em)
 
 def remove_duplicates(strings, threshold=70):
     unique_strings = []
