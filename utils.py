@@ -6,7 +6,6 @@ from ast import literal_eval
 # from streamlit_image_select import image_select
 from streamlit_carousel import carousel
 import gdown
-import os
 
 QUERY_PROMPT  = 'Represent this sentence for searching relevant passages: '
 METADATA_KEYS = ['From', 'To', 'Cc', 'Date', 'Subject', 'Attachment']
