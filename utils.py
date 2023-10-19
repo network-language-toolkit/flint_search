@@ -8,6 +8,7 @@ from streamlit_carousel import carousel
 import gdown
 import os
 import subprocess
+import time
 
 QUERY_PROMPT  = 'Represent this sentence for searching relevant passages: '
 METADATA_KEYS = ['From', 'To', 'Cc', 'Date', 'Subject', 'Attachment']
@@ -43,6 +44,7 @@ def prep_data():
     subprocess.run(['wget', 'https://rjdgrlmrpwnzwmdwgizseanca.s3.amazonaws.com/flint_920/flint_920/index.faiss'])
     subprocess.run(['wget', 'https://rjdgrlmrpwnzwmdwgizseanca.s3.amazonaws.com/flint_920/flint_920/index.pkl'])
     os.chdir('..')
+    time.sleep(5)
     # flint_920_url = 'https://drive.google.com/drive/folders/1dXnLDBpVtfSo6SncSdOlidcAMnkbeiG8?usp=sharing'
     # gdown.download_folder(flint_920_url, use_cookies=False)
 
