@@ -9,7 +9,7 @@ st.markdown(css_cdn, unsafe_allow_html=True)
 st.markdown(js_cdn, unsafe_allow_html=True)
 st.markdown(utils.css,unsafe_allow_html=True)
 
-if os.path.exists('flint_920'): utils.prep_data()
+utils.prep_data()
 em = utils.prep_embeddings()
 db = utils.prep_db(em)
 
