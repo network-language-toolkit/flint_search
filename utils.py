@@ -6,9 +6,6 @@ from ast import literal_eval
 # from streamlit_image_select import image_select
 from streamlit_carousel import carousel
 import gdown
-import os
-import subprocess
-import time
 
 QUERY_PROMPT  = 'Represent this sentence for searching relevant passages: '
 METADATA_KEYS = ['From', 'To', 'Cc', 'Date', 'Subject', 'Attachment']
@@ -39,12 +36,6 @@ css = """
 
 @st.cache_data
 def prep_data():
-    # os.makedirs('flint_920', exist_ok=True)
-    # os.chdir('flint_920')
-    # subprocess.run(['wget', 'https://rjdgrlmrpwnzwmdwgizseanca.s3.amazonaws.com/flint_920/flint_920/index.faiss'])
-    # subprocess.run(['wget', 'https://rjdgrlmrpwnzwmdwgizseanca.s3.amazonaws.com/flint_920/flint_920/index.pkl'])
-    # os.chdir('..')
-    # time.sleep(30)
     flint_920_url = 'https://drive.google.com/drive/folders/1dXnLDBpVtfSo6SncSdOlidcAMnkbeiG8?usp=sharing'
     gdown.download_folder(flint_920_url, use_cookies=False)
 
@@ -97,7 +88,7 @@ def display(doc):
     image_paths = [format_image_path(tn) for tn in text_names] 
     if len(image_paths) > 1:
         image_list = [dict(title=f'Scan {i+1}', text=image_path.split('/')[-1], img=image_path) for i, image_path in enumerate(image_paths)]
-        carousel(items = image_list, slide=False, controls=True)
+        carousel(items=image_list, wrap=False, controls=True, height=800, width=100, indicators=True)
         # img_select = image_select("See images in this thread", image_paths, captions=[cap.split('/')[-1] for cap in image_paths])
         # if img_select:
         #     st.image(img_select)
