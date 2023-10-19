@@ -39,14 +39,14 @@ css = """
 
 @st.cache_data
 def prep_data():
-    os.makedirs('flint_920', exist_ok=True)
-    os.chdir('flint_920')
-    subprocess.run(['wget', 'https://rjdgrlmrpwnzwmdwgizseanca.s3.amazonaws.com/flint_920/flint_920/index.faiss'])
-    subprocess.run(['wget', 'https://rjdgrlmrpwnzwmdwgizseanca.s3.amazonaws.com/flint_920/flint_920/index.pkl'])
-    os.chdir('..')
-    time.sleep(30)
-    # flint_920_url = 'https://drive.google.com/drive/folders/1dXnLDBpVtfSo6SncSdOlidcAMnkbeiG8?usp=sharing'
-    # gdown.download_folder(flint_920_url, use_cookies=False)
+    # os.makedirs('flint_920', exist_ok=True)
+    # os.chdir('flint_920')
+    # subprocess.run(['wget', 'https://rjdgrlmrpwnzwmdwgizseanca.s3.amazonaws.com/flint_920/flint_920/index.faiss'])
+    # subprocess.run(['wget', 'https://rjdgrlmrpwnzwmdwgizseanca.s3.amazonaws.com/flint_920/flint_920/index.pkl'])
+    # os.chdir('..')
+    # time.sleep(30)
+    flint_920_url = 'https://drive.google.com/drive/folders/1dXnLDBpVtfSo6SncSdOlidcAMnkbeiG8?usp=sharing'
+    gdown.download_folder(flint_920_url, use_cookies=False)
 
 @st.cache_resource
 def prep_embeddings():
