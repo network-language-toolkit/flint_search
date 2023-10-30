@@ -32,7 +32,7 @@ css = """
         </style>
         """
 
-@st.cache_data
+@st.cache_data(ttl="1d")
 def prep_data():
     flint_920_url = 'https://drive.google.com/drive/folders/1dXnLDBpVtfSo6SncSdOlidcAMnkbeiG8?usp=sharing'
     gdown.download_folder(flint_920_url, use_cookies=False)
