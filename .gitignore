@@ -169,3 +169,6 @@ flint_920.zip
 
 # csvs
 *.csv
+
+# secrets
+*.toml
