@@ -152,7 +152,7 @@ def display(doc):
     if non_pdf in VALID_ARCHIVE:
         link = f'[Click here to explore more on Archive.org]({non_pdf})'
     else:
-        pdf_link = f"https://archive.org/details/snyder_flint_emails/{repo}.pdf"
+        pdf_link = f"https://archive.org/download/snyder_flint_emails/{repo}.pdf"
         link = f'[Click here to explore more on Archive.org]({pdf_link})'
     st.markdown(link)
     st.divider()
