@@ -29,9 +29,10 @@ st.divider()
 
 if user_query != '':
     query_embedding = model.encode(query)
-    raw_responses = conn.execute(utils.RERANK_SQL, {'query': query, 'embedding': query_embedding, 'k': utils.K, 'k_comp': utils.K_COMP}).fetchall()
-    # raw_responses = conn.execute(utils.SQL, {'query_embedding': query_embedding}).fetchall()
-    valid_ids = utils.remove_duplicates([rr[1] for rr in raw_responses])
-    valid_responses = [raw_responses[i] for i in [vi[0] for vi in valid_ids]][:num_responses]
-    for vr in valid_responses:
-        utils.display(vr)
+    with st.spinner("Please wait. Querying may take up to a minute..."):
+        raw_responses = conn.execute(utils.RERANK_SQL, {'query': query, 'embedding': query_embedding, 'k': utils.K, 'k_comp': utils.K_COMP}).fetchall()
+        # raw_responses = conn.execute(utils.SQL, {'query_embedding': query_embedding}).fetchall()
+        valid_ids = utils.remove_duplicates([rr[1] for rr in raw_responses])
+        valid_responses = [raw_responses[i] for i in [vi[0] for vi in valid_ids]][:num_responses]
+        for vr in valid_responses:
+            utils.display(vr)

@@ -3,7 +3,7 @@ from thefuzz import fuzz
 from sentence_transformers import SentenceTransformer
 from pgvector.psycopg import register_vector
 import psycopg
-import requests
+from urllib.parse import urlparse
 import re
 
 QUERY_PROMPT  = 'Represent this sentence for searching relevant passages: '
@@ -94,12 +94,19 @@ def init_model():
     return SentenceTransformer('BAAI/bge-large-en-v1.5')
 
 def init_db():
+    result = urlparse(st.secrets['neon_db_connection']['url'])
+    username = result.username
+    password = result.password
+    database = result.path[1:]
+    hostname = result.hostname
+    port = result.port
+
     conn = psycopg.connect(
-        dbname=st.secrets['manual_db_connection']['dbname'],
-        user=st.secrets['manual_db_connection']['user'], 
-        password=st.secrets['manual_db_connection']['password'],
-        host = st.secrets['manual_db_connection']['host'], 
-        port = st.secrets['manual_db_connection']['port'], 
+        dbname=database,
+        user=username,
+        password=password,
+        host = hostname,
+        port = port,
         autocommit=True
         )
     conn.execute('CREATE EXTENSION IF NOT EXISTS vector')
